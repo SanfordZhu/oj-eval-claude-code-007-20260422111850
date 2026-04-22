@@ -145,8 +145,12 @@ public:
 
 private:
 
-    // Fill this in with whatever types and instance variables you need
-    //todo
+    struct LineInfo {
+        std::string sourceLine;
+        Statement *parsedStatement;
+    };
+
+    std::map<int, LineInfo> lines;
 };
 
 #endif

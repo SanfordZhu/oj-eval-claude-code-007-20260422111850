@@ -85,4 +85,89 @@ public:
  * specify its own destructor method to free that memory.
  */
 
+class RemStatement : public Statement {
+public:
+    RemStatement(const std::string& comment);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string comment;
+};
+
+class LetStatement : public Statement {
+public:
+    LetStatement(const std::string& var, Expression *exp);
+    virtual ~LetStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string var;
+    Expression *exp;
+};
+
+class PrintStatement : public Statement {
+public:
+    PrintStatement(Expression *exp);
+    virtual ~PrintStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    Expression *exp;
+};
+
+class InputStatement : public Statement {
+public:
+    InputStatement(const std::string& var);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string var;
+};
+
+class EndStatement : public Statement {
+public:
+    EndStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+class GotoStatement : public Statement {
+public:
+    GotoStatement(int lineNumber);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    int lineNumber;
+};
+
+class IfStatement : public Statement {
+public:
+    IfStatement(Expression *exp1, const std::string& op, Expression *exp2, int targetLine);
+    virtual ~IfStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    Expression *exp1;
+    Expression *exp2;
+    std::string op;
+    int targetLine;
+};
+
+class RunStatement : public Statement {
+public:
+    RunStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+class ListStatement : public Statement {
+public:
+    ListStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+class ClearStatement : public Statement {
+public:
+    ClearStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+class QuitStatement : public Statement {
+public:
+    QuitStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
 #endif

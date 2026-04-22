@@ -121,6 +121,18 @@ int CompoundExp::eval(EvalState &state) {
         if (right == 0) error("DIVIDE BY ZERO");
         return left / right;
     }
+    if (op == "%") {
+        if (right == 0) error("MODULO BY ZERO");
+        return left % right;
+    }
+    // Comparison operators - return 1 for true, 0 for false
+    if (op == "=") return (left == right) ? 1 : 0;
+    if (op == "<") return (left < right) ? 1 : 0;
+    if (op == ">") return (left > right) ? 1 : 0;
+    if (op == "<=") return (left <= right) ? 1 : 0;
+    if (op == ">=") return (left >= right) ? 1 : 0;
+    if (op == "<>") return (left != right) ? 1 : 0;
+
     return 0;
 }
 
